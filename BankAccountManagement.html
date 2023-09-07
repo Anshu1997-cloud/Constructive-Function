@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+     // Constructor function for BankAccount
+function BankAccount(accountNumber, name, type, balance) {
+
+  this.accountNumber = accountNumber;
+  this.name = name;
+  this.type = type;
+  this.balance = balance;
+  this.active = true; // Initialize the account as active
+}
+
+// Add methods to the BankAccount prototype
+BankAccount.prototype.deposit = function (amount) {
+  if (amount > 0) {
+    this.balance += amount;
+    console.log(`${this.name}'s account has been credited with $${amount}`);
+  } else {
+    console.log("Invalid deposit amount.");
+  }
+};
+
+BankAccount.prototype.withdraw = function (amount) {
+
+  if (amount > 0 && amount <= this.balance) {
+    this.balance -= amount;
+    console.log(`${this.name}'s account has been debited with $${amount}`);
+  } else {
+    console.log("Insufficient balance or invalid withdrawal amount.");
+  }
+};
+
+BankAccount.prototype.checkBalance = function () {
+
+  console.log(`${this.name}'s account balance: $${this.balance}`);
+};
+
+BankAccount.prototype.isActive = function () {
+
+  return this.active;
+};
+
+// Create multiple BankAccount objects
+
+const account1 = new BankAccount(1, "Neeraj", "Savings", 100000);
+const account2 = new BankAccount(2, "Ajinkey", "Checking", 200000);
+const account3 = new BankAccount(3, "Sanju Samson", "Savings", 150000);
+
+// Perform operations on the accounts
+
+account1.deposit(500);
+account2.withdraw(100);
+account3.deposit(300);
+
+// Check account balances
+
+account1.checkBalance();
+account2.checkBalance();
+account3.checkBalance();
+
+// Deactivate an account
+
+account2.active = false;
+
+// Test the isActive method
+
+console.log(`Is ${account1.name}'s account active? ${account1.isActive()}`);
+console.log(`Is ${account2.name}'s account active? ${account2.isActive()}`);
+console.log(`Is ${account3.name}'s account active? ${account3.isActive()}`);
+
+// Function to calculate total balance of all active accounts
+
+function getTotalBalance(accounts) {
+  let totalBalance = 0;
+  for (const account of accounts) {
+    if (account.isActive()) {
+      totalBalance += account.balance;
+    }
+  }
+  return totalBalance;
+}
+
+// Test the getTotalBalance function
+const accounts = [account1, account2, account3];
+const totalActiveBalance = getTotalBalance(accounts);
+console.log(`Total balance of all active accounts: $${totalActiveBalance}`);
+
+    </script>
+</body>
+</html>
