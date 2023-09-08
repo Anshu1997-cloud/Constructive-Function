@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    function BankAccount(accountNumber , name , type, balance, isActive){
+
+        this.accountNumber = accountNumber;
+        this.name = name;
+        this.type = type;
+        this.balance = balance;
+        // this.isActive = isActive;
+
+        this.deposit = function(amount){
+            this.balance += amount;
+            console.log(`Your updated balance is : ${this.balance}`);
+
+           let body = document.querySelector('body')
+            let h1 = document.createElement("h1");
+            h1.innerText = `Your updated balance is : ${this.balance}`;
+
+            body.appendChild(h1)
+        }
+        this.withdraw = function(amount){
+            if(this.balance >= amount){
+                this.balance -= amount
+                console.log(`Your updated balance is : ${this.balance}`);
+            }
+            else{
+                console.log("Insufficient Balance")
+            }
+        }
+        this.isActive = function(){
+            if(this.balance < 0){
+                console.log("Account is not Active")
+            }
+            else{
+                console.log("Account is Active")
+            }
+        }
+    }
+
+    let account1 =new BankAccount(76543987 , "Jonathan", "Savings", 6000);
+    let account2 = new BankAccount(5678353, "Samuel" , "Current",9000);
+
+    account1.deposit(1000)
+
+    account1.withdraw(100)
+    account1.isActive()
+
+    function getTotalBalance(accounts) {
+        let totalBalance = 0
+        for(let i = 0; i<accounts.length; i++){
+             if(accounts[i].balance != 0){
+                totalBalance += accounts[i].balance
+        }
+    }
+    return totalBalance
+    }
+
+    let accounts = [account1 , account2];
+    let totalActiveBalance = getTotalBalance(accounts);
+    console.log(`Total Balance of all active account is : ${totalActiveBalance}` );
+    </script>
+    </body>
+</body>
+</html>
